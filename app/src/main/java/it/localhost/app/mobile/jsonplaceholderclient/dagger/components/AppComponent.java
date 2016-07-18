@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
 
 /**
  * Dagger component
@@ -16,4 +18,5 @@ import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
 @Singleton
 public interface AppComponent {
 
+    MainComponent plus(MainModule mainModule);
 }

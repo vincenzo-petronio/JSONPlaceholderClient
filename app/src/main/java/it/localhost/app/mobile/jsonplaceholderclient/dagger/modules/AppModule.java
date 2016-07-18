@@ -2,6 +2,7 @@ package it.localhost.app.mobile.jsonplaceholderclient.dagger.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 
@@ -59,4 +60,14 @@ public class AppModule {
     NetworkStateManager provideNetworkStateManager(ConnectivityManager connectivityManager) {
         return new NetworkStateManager(connectivityManager);
     }
+
+    /**
+     * @return Resources
+     */
+    @Provides
+    @Singleton
+    Resources provideResources() {
+        return mApp.getResources();
+    }
+
 }
