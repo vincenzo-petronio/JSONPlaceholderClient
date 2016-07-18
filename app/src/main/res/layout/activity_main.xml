@@ -5,7 +5,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/common_layout_padding"
-        tools:context="it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity">
+        tools:context="it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity"
+        android:orientation="vertical">
+
+    <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:visibility="visible" android:indeterminate="true"/>
 
     <ListView
             android:layout_width="match_parent"

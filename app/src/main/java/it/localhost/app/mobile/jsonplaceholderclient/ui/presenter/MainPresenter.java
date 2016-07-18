@@ -5,21 +5,22 @@ import android.content.res.Resources;
 import java.util.Arrays;
 
 import it.localhost.app.mobile.jsonplaceholderclient.R;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 
 /**
  *
  */
 public class MainPresenter {
 
-    private MainActivity mMainActivity;
+    private MainView mMainView;
     private Resources mResources;
 
     /**
-     * @param mainActivity MainActivity
+     * @param mainView  MainView
+     * @param resources Resources
      */
-    public MainPresenter(MainActivity mainActivity, Resources resources) {
-        this.mMainActivity = mainActivity;
+    public MainPresenter(MainView mainView, Resources resources) {
+        this.mMainView = mainView;
         this.mResources = resources;
     }
 
@@ -27,6 +28,6 @@ public class MainPresenter {
      * Recupera i dati e li invia alla View.
      */
     public void loadData() {
-        mMainActivity.setData(Arrays.asList(mResources.getStringArray(R.array.main_menu)));
+        mMainView.setItems(Arrays.asList(mResources.getStringArray(R.array.main_menu)));
     }
 }

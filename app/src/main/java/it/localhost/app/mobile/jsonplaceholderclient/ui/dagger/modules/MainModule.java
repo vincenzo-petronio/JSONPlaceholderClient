@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import dagger.Module;
 import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
 
 /**
@@ -13,25 +13,24 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
  */
 @Module
 public class MainModule {
-    private MainActivity mMainActivity;
+    private MainView mMainView;
 
     /**
-     *
-     * @param mainActivity
+     * @param mainView MainView
      */
-    public MainModule(MainActivity mainActivity) {
-        mMainActivity = mainActivity;
+    public MainModule(MainView mainView) {
+        mMainView = mainView;
     }
 
     @Provides
     @ActivityScope
-    MainActivity provideMainActivity() {
-        return mMainActivity;
+    MainView provideMainView() {
+        return mMainView;
     }
 
     @Provides
     @ActivityScope
     MainPresenter provideMainPresenter(Resources resources) {
-        return new MainPresenter(mMainActivity, resources);
+        return new MainPresenter(mMainView, resources);
     }
 }
