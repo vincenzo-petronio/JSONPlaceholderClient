@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         initUi();
         initDependencyInjector();
-        presenter.loadData();
+        presenter.requestItems();
     }
 
     private void initUi() {
@@ -51,12 +51,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ((JPCApp) getApplication()).getAppComponent().plus(new MainModule(this)).inject(this);
     }
 
-    /**
-     * @param items
-     */
-//    public void setData(List<String> items) {
-//        lvItems.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
-//    }
     @OnItemClick(R.id.lvItems)
     public void onItemsClick(int position) {
         String s = (String) lvItems.getItemAtPosition(position);

@@ -7,6 +7,7 @@ import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenterImpl;
 
 /**
  *
@@ -31,6 +32,6 @@ public class MainModule {
     @Provides
     @ActivityScope
     MainPresenter provideMainPresenter(Resources resources) {
-        return new MainPresenter(mMainView, resources);
+        return new MainPresenterImpl(mMainView, resources);
     }
 }
