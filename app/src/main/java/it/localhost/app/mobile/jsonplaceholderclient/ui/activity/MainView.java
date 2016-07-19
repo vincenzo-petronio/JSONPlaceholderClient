@@ -3,7 +3,7 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 import java.util.List;
 
 /**
- *
+ * Contiene i metodi che la MainActivity deve implementare per dialogare con gli elementi della UI
  */
 public interface MainView {
 

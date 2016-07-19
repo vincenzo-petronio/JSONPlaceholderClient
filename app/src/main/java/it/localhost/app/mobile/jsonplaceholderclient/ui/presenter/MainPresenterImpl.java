@@ -1,29 +1,34 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
-import android.content.res.Resources;
 import android.os.CountDownTimer;
 
-import java.util.Arrays;
+import java.util.List;
 
-import it.localhost.app.mobile.jsonplaceholderclient.R;
+import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractor;
+import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractorImpl;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 
 /**
  *
  */
-public class MainPresenterImpl implements MainPresenter {
+public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.MainInteractorListener {
 
     private MainView mMainView;
-    private Resources mResources;
+    private MainInteractor mMainInteractor;
 
-    /**
-     * @param mainView  MainView
-     * @param resources Resources
-     */
-    public MainPresenterImpl(MainView mainView, Resources resources) {
-        this.mMainView = mainView;
-        this.mResources = resources;
+    public MainPresenterImpl(MainView mainView, MainInteractor interactor) {
+        mMainView = mainView;
+        mMainInteractor = interactor;
     }
+
+//    /**
+//     * @param mainView  MainView
+//     * @param resources Resources
+//     */
+//    public MainPresenterImpl(MainView mainView, Resources resources) {
+//        this.mMainView = mainView;
+//        this.mResources = resources;
+//    }
 
     /**
      * Recupera i dati e li invia alla View.
@@ -40,9 +45,21 @@ public class MainPresenterImpl implements MainPresenter {
 
             @Override
             public void onFinish() {
-                mMainView.setItems(Arrays.asList(mResources.getStringArray(R.array.main_menu)));
-                mMainView.showProgress(false);
+                mMainInteractor.getAvailableApi(MainPresenterImpl.this);
             }
         }.start();
+    }
+
+    @Override
+    public void onDataSuccess(List<String> items) {
+        // TODO i dati devono arrivare dalla callback. spostare l'arrays in getAvailableApi
+        mMainView.setItems(items);
+        mMainView.showProgress(false);
+    }
+
+    @Override
+    public void onDataError(Exception e) {
+        mMainView.showMessage(e.getMessage());
+        mMainView.showProgress(false);
     }
 }
