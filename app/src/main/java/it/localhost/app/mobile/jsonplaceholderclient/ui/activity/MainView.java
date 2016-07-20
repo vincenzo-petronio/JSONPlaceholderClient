@@ -1,5 +1,7 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 
+import android.app.Activity;
+
 import java.util.List;
 
 /**
@@ -12,4 +14,6 @@ public interface MainView {
     void showMessage(String message);
 
     void showProgress(boolean show);
+
+    void launchNextActivity(Activity activity);
 }

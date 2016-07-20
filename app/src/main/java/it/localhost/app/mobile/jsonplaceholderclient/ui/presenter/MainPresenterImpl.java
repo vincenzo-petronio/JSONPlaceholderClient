@@ -1,5 +1,6 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
+import android.app.Activity;
 import android.os.CountDownTimer;
 
 import java.util.List;
@@ -39,6 +40,28 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorListener 
                 mMainInteractor.getAvailableApi(MainPresenterImpl.this);
             }
         }.start();
+    }
+
+    @Override
+    public void onSelectedItem(String s) {
+        switch (s) {
+            case "posts":
+                break;
+            case "comments":
+                break;
+            case "albums":
+                break;
+            case "photos":
+                break;
+            case "todos":
+                break;
+            case "users":
+                break;
+            default:
+                break;
+        }
+
+        mMainView.launchNextActivity(new Activity());
     }
 
     @Override
