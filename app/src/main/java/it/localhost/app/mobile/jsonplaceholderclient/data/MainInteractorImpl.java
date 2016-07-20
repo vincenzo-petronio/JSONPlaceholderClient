@@ -3,7 +3,6 @@ package it.localhost.app.mobile.jsonplaceholderclient.data;
 import android.content.res.Resources;
 
 import java.util.Arrays;
-import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 
@@ -11,18 +10,8 @@ import it.localhost.app.mobile.jsonplaceholderclient.R;
  *
  */
 public class MainInteractorImpl implements MainInteractor {
-
     private Resources mResources;
     private MainInteractorListener mListener;
-
-    //    /**
-//     * @param resources Resources
-//     * @param listener  MainInteractorListener
-//     */
-//    public MainInteractorImpl(Resources resources, MainInteractorListener listener) {
-//        mResources = resources;
-//        mListener = listener;
-//    }
 
     public MainInteractorImpl(Resources resources) {
         mResources = resources;
@@ -38,9 +27,9 @@ public class MainInteractorImpl implements MainInteractor {
         }
     }
 
-    public interface MainInteractorListener {
-        void onDataSuccess(List<String> items);
-
-        void onDataError(Exception e);
-    }
+//    public interface MainInteractorListener {
+//        void onDataSuccess(List<String> items);
+//
+//        void onDataError(Exception e);
+//    }
 }

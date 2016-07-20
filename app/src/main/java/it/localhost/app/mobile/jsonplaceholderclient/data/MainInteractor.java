@@ -5,5 +5,5 @@ package it.localhost.app.mobile.jsonplaceholderclient.data;
  */
 public interface MainInteractor {
 
-    void getAvailableApi(MainInteractorImpl.MainInteractorListener listener);
+    void getAvailableApi(MainInteractorListener listener);
 }

@@ -43,5 +43,4 @@ public class MainModule {
         return new MainInteractorImpl(resources);
     }
 
-
 }

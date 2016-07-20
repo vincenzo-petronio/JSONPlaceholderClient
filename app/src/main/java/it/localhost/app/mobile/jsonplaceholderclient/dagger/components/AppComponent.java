@@ -18,5 +18,9 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModul
 @Singleton
 public interface AppComponent {
 
+    // Un @Subcomponent non può vivere autonomamente, per questo deve essere definito come metodo
+    // in una interfaccia annotata come @Component, e tale metodo deve restituire proprio il tipo
+    // di interfaccia annotata come @Subcomponent.
+    // Tale operazione va ripetuta per ogni Activity annotata come @Subcomponent.
     MainComponent plus(MainModule mainModule);
 }

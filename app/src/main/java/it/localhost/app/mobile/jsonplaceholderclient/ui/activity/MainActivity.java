@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 break;
             case "users":
                 break;
-
             default:
                 break;
         }

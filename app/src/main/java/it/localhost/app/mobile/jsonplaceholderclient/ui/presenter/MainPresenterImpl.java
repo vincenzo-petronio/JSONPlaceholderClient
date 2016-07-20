@@ -5,13 +5,13 @@ import android.os.CountDownTimer;
 import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractor;
-import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractorImpl;
+import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractorListener;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 
 /**
  *
  */
-public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.MainInteractorListener {
+public class MainPresenterImpl implements MainPresenter, MainInteractorListener {
 
     private MainView mMainView;
     private MainInteractor mMainInteractor;
@@ -20,15 +20,6 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.Main
         mMainView = mainView;
         mMainInteractor = interactor;
     }
-
-//    /**
-//     * @param mainView  MainView
-//     * @param resources Resources
-//     */
-//    public MainPresenterImpl(MainView mainView, Resources resources) {
-//        this.mMainView = mainView;
-//        this.mResources = resources;
-//    }
 
     /**
      * Recupera i dati e li invia alla View.
@@ -52,7 +43,6 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorImpl.Main
 
     @Override
     public void onDataSuccess(List<String> items) {
-        // TODO i dati devono arrivare dalla callback. spostare l'arrays in getAvailableApi
         mMainView.setItems(items);
         mMainView.showProgress(false);
     }
