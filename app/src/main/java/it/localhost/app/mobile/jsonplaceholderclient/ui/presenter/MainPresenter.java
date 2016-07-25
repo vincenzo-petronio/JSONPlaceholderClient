@@ -1,7 +1,8 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
 /**
- * Consente di accedere ai dati forniti dall' interactor e aggiorna la View.
+ * Interfaccia tra Interactor e Presenter.<br />
+ * Consente di accedere ai dati forniti dall' interactor e aggiornare la View.
  */
 public interface MainPresenter {
 

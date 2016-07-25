@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +20,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
+import it.localhost.app.mobile.jsonplaceholderclient.util.NotificationFactory;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        NotificationFactory.createToastLongNotification(this, message).show();
     }
 
     @Override
