@@ -1,4 +1,4 @@
-package it.localhost.app.mobile.jsonplaceholderclient.data;
+package it.localhost.app.mobile.jsonplaceholderclient.data.interactor;
 
 import android.content.res.Resources;
 
@@ -26,10 +26,4 @@ public class MainInteractorImpl implements MainInteractor {
             mListener.onDataError(new Exception("Resources NULL!"));
         }
     }
-
-//    public interface MainInteractorListener {
-//        void onDataSuccess(List<String> items);
-//
-//        void onDataError(Exception e);
-//    }
 }

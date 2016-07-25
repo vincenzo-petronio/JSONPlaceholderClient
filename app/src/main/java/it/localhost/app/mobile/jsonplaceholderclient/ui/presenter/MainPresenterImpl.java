@@ -5,8 +5,8 @@ import android.os.CountDownTimer;
 
 import java.util.List;
 
-import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractor;
-import it.localhost.app.mobile.jsonplaceholderclient.data.MainInteractorListener;
+import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractor;
+import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractorListener;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 
 /**
