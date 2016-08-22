@@ -9,22 +9,24 @@ import it.localhost.app.mobile.jsonplaceholderclient.R;
 /**
  *
  */
-public class MainInteractorImpl implements MainInteractor {
+public class ApiInteractorImpl implements ApiInteractor {
 
-    private Resources mResources;
-    private MainInteractorListener mListener;
+    private Resources mResources; // TODO sostituire con Retrofit/DataManager/Service
+    private ApiInteractorListener mListener;
 
-    public MainInteractorImpl(Resources resources) {
+    public ApiInteractorImpl(Resources resources) {
         mResources = resources;
     }
 
     @Override
-    public void getAvailableApi(MainInteractorListener listener) {
+    public void getApi(ApiInteractorListener listener) {
         mListener = listener;
         if (mResources != null) {
-            mListener.onDataSuccess(Arrays.asList(mResources.getStringArray(R.array.main_menu)));
+            mListener.onDataSuccess(Arrays.asList(mResources.getStringArray(R.array.api_items)));
         } else {
             mListener.onDataError(new Exception("Resources NULL!"));
         }
     }
+
+
 }

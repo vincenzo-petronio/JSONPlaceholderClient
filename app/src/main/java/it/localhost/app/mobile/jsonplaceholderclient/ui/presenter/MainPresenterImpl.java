@@ -1,13 +1,15 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
-import android.app.Activity;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractorListener;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
+import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 
 /**
  *
@@ -44,25 +46,43 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorListener 
 
     @Override
     public void onSelectedItem(String s) {
+        ApiActivity activity = null;
+        Bundle args = new Bundle();
         switch (s) {
             case "posts":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "posts");
                 break;
             case "comments":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "comments");
                 break;
             case "albums":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "albums");
                 break;
             case "photos":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "photos");
                 break;
             case "todos":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "todos");
                 break;
             case "users":
+                activity = new ApiActivity();
+                args.putString(Constants.BUNDLE_KEY_API, "users");
                 break;
             default:
                 break;
         }
 
-        mMainView.launchNextActivity(new Activity());
+        if (activity != null) {
+            mMainView.launchNextActivity(activity, args);
+        }
     }
+
+    // INTERACTOR CALLBACK
 
     @Override
     public void onDataSuccess(List<String> items) {

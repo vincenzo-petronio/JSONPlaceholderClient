@@ -1,11 +1,12 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import java.util.List;
 
 /**
- * Interfaccia tra View e Presenter.<br />
+ * Interfaccia tra Activity e Presenter.<br />
  * Contiene i metodi che la MainActivity deve implementare per dialogare con gli elementi della UI
  */
 public interface MainView {
@@ -16,5 +17,5 @@ public interface MainView {
 
     void showProgress(boolean show);
 
-    void launchNextActivity(Activity activity);
+    void launchNextActivity(Activity activity, Bundle bundle);
 }

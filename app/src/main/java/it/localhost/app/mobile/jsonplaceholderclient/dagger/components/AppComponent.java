@@ -4,7 +4,9 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.ApiComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
 
 /**
@@ -23,4 +25,6 @@ public interface AppComponent {
     // di interfaccia annotata come @Subcomponent.
     // Tale operazione va ripetuta per ogni Activity annotata come @Subcomponent.
     MainComponent plus(MainModule mainModule);
+
+    ApiComponent plus(ApiModule apiModule);
 }

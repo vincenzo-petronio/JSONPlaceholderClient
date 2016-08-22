@@ -1,6 +1,7 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,17 +40,20 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         initUi();
         initDependencyInjector();
-        presenter.requestItems();
+        initPresenter();
     }
 
     private void initUi() {
-        // VIEW
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
 
     private void initDependencyInjector() {
         ((JPCApp) getApplication()).getAppComponent().plus(new MainModule(this)).inject(this);
+    }
+
+    private void initPresenter() {
+        presenter.requestItems();
     }
 
     @OnItemClick(R.id.lvItems)
@@ -78,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void launchNextActivity(Activity activity) {
-        // TODO
-//        startActivity(new Intent(this, activity.getClass()));
+    public void launchNextActivity(Activity activity, Bundle bundle) {
+        startActivity(new Intent(this, activity.getClass()).putExtras(bundle));
     }
 }
