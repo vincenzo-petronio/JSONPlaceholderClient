@@ -19,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
+import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
+import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
@@ -36,6 +38,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     ApiPresenter presenter;
     @BindView(R.id.lvItems)
     ListView lvItems;
+
 
     public ItemsFragment() {
         // Required empty public constructor
@@ -117,7 +120,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     private void initDependencyInjector() {
-        ((JPCApp) getActivity(). getApplication()).getAppComponent().plus(new ApiModule(this)).inject(this);
+        ((JPCApp) getActivity(). getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
     }
 
     private void initPresenter() {

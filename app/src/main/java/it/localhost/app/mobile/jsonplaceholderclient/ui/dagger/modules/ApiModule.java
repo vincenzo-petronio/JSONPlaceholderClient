@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import dagger.Module;
 import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;
+import it.localhost.app.mobile.jsonplaceholderclient.data.ApiService;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractorImpl;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
@@ -36,7 +37,7 @@ public class ApiModule {
 
     @Provides
     @ActivityScope
-    ApiInteractor provideApiInteractor(Resources resources) { // TODO cambiare resources con retrofit
+    ApiInteractor provideApiInteractor(ApiService resources) { // TODO cambiare resources con retrofit
         return new ApiInteractorImpl(resources);
     }
 }

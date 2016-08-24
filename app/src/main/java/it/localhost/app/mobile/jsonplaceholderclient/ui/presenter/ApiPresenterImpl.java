@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractorListener;
+import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
 
 /**
