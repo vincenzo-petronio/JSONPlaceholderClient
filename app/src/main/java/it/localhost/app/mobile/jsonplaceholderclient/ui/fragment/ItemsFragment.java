@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.PostsAdapter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
@@ -36,8 +37,8 @@ public class ItemsFragment extends Fragment implements ApiView {
     private String bundleApiValue;
     @Inject
     ApiPresenter presenter;
-    @BindView(R.id.lvItems)
-    ListView lvItems;
+    @BindView(R.id.rvItems)
+    RecyclerView rvItems;
 
 
     public ItemsFragment() {
@@ -120,7 +121,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     private void initDependencyInjector() {
-        ((JPCApp) getActivity(). getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
+        ((JPCApp) getActivity().getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
     }
 
     private void initPresenter() {
@@ -129,8 +130,10 @@ public class ItemsFragment extends Fragment implements ApiView {
 
     // VIEW METHOD
     @Override
-    public void setItems(List<String> items) {
-        lvItems.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items));
+    public void setItems(List<?> items) {
+        PostsAdapter adapter = new PostsAdapter((List<Post>) items, getContext());
+        rvItems.setAdapter(adapter);
+        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override

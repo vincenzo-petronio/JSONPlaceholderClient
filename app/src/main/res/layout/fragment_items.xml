@@ -5,16 +5,20 @@
     tools:context="it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragment">
 
     <!--<ProgressBar-->
-        <!--android:id="@+id/pb"-->
-        <!--style="?android:attr/progressBarStyleHorizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:indeterminate="true"-->
-        <!--android:visibility="visible" />-->
+    <!--android:id="@+id/pb"-->
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:indeterminate="true"-->
+    <!--android:visibility="visible" />-->
 
-    <ListView
-        android:id="@+id/lvItems"
+    <!--<ListView-->
+    <!--android:id="@+id/lvItems"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvItems"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

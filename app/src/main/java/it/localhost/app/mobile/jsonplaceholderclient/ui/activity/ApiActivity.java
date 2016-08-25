@@ -7,23 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragmentCallback;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 
 public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallback {
 
     private static final String TAG = ApiActivity.class.getSimpleName();
     private String bundleApiValue;
-//    @Inject
+    //    @Inject
 //    ApiPresenter presenter;
     @BindView(R.id.pb)
     ProgressBar progress;
@@ -48,6 +43,11 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
 //        initPresenter();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     private void initUi() {
         setContentView(R.layout.activity_api);

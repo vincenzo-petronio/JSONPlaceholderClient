@@ -1,7 +1,5 @@
 package it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;

@@ -6,7 +6,6 @@ import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractorListener;
-import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
 
 /**
@@ -40,7 +39,7 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
 
     // INTERACTOR CALLBACK
     @Override
-    public void onDataSuccess(List<String> items) {
+    public void onDataSuccess(List<?> items) {
         mApiView.showProgress(false);
         mApiView.setItems(items);
     }
