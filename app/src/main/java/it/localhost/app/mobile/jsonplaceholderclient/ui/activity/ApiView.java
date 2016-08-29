@@ -1,5 +1,7 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 
+import android.os.Bundle;
+
 import java.util.List;
 
 /**
@@ -14,5 +16,5 @@ public interface ApiView {
 
     void showProgress(boolean show);
 
-    void launchNextView();
+    void launchNextView(Bundle bundle);
 }

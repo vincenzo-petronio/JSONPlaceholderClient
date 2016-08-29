@@ -129,18 +129,18 @@ public class ItemsFragment extends Fragment implements ApiView {
         presenter.requestItems();
     }
 
+    /**
+     * Listener tra Adapter e Fragment
+     */
     private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
         @Override
-        public void onItemClick(View itemView, int position) {
-            Log.v(TAG, "OnItemClickListener: " + Integer.toString(position));
+        public void onItemClick(Bundle bundle) {
+//            Log.v(TAG, "OnItemClickListener: " + Integer.toString(((Post)bundle).getId()));
 
-//            itemView.
-
-//                Post post = ((List<Post>)items).get(position);
+            launchNextView(bundle);
 
             // Passare attraverso il Presenter per fare logica!
 //            presenter.onSelectedItem(Integer.toString(position));
-
         }
     };
 
@@ -155,7 +155,7 @@ public class ItemsFragment extends Fragment implements ApiView {
 
     @Override
     public void showMessage(String message) {
-
+        // TODO
     }
 
     @Override
@@ -167,9 +167,9 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     @Override
-    public void launchNextView() {
+    public void launchNextView(Bundle bundle) {
         // Essendo un Fragment passo il controllo all'Activity attraverso la Callback
-        mListener.loadDetailsFragment();
+        mListener.loadDetailsFragment(bundle);
     }
 
 }

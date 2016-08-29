@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Log.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        initUi();
         initDependencyInjector();
+        initUi();
         initPresenter();
     }
 

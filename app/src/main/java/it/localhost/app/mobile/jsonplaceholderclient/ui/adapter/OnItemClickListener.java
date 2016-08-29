@@ -1,10 +1,10 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.adapter;
 
-import android.view.View;
+import android.os.Bundle;
 
 /**
  * Callback per passare l'evento OnItemClick dall'Adapter al Fragment
  */
 public interface OnItemClickListener {
-    void onItemClick(View itemView, int position);
+    void onItemClick(Bundle bundle);
 }

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemDetailsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragmentCallback;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
@@ -18,10 +19,10 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
 
     private static final String TAG = ApiActivity.class.getSimpleName();
     private String bundleApiValue;
-    //    @Inject
-//    ApiPresenter presenter;
     @BindView(R.id.pb)
     ProgressBar progress;
+    //    @Inject
+//    ApiPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,18 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
             return;
         }
 
-        initUi();
         initDependencyInjector();
+        initUi();
 //        initPresenter();
+
+        /**
+         * Il Presenter lo utilizzo per il Fragment,
+         * non per l'Activity che attualmente non ha compiti e non contiene dati.
+         * Tutta la logica è nel Fragment!
+         * Eventualmente si poteva utilizzare lo stesso Presenter per dialogare con l'Interactor
+         * sia dall'Activity che dal Fragment figlio.
+         */
+
     }
 
     @Override
@@ -72,12 +82,11 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
 
     // FRAGMENT CALLBACK
     @Override
-    public void loadDetailsFragment() {
-// TODO caricare nuovo frag
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fragItems, ItemDetailsFragment.newInstance(bundleApiValue))
-//                .commit();
+    public void loadDetailsFragment(Bundle bundle) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragItems, ItemDetailsFragment.newInstance(bundle))
+                .commit();
     }
 
     @Override

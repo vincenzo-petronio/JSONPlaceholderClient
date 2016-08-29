@@ -12,11 +12,6 @@
     <!--android:indeterminate="true"-->
     <!--android:visibility="visible" />-->
 
-    <!--<ListView-->
-    <!--android:id="@+id/lvItems"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content" />-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItems"
         android:layout_width="match_parent"

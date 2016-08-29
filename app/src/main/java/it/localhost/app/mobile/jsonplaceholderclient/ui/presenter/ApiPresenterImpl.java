@@ -1,5 +1,6 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
     }
 
     @Override
-    public void onSelectedItem(String s) {
+    public void onSelectedItem(Bundle bundle) {
+//        mApiView.launchNextView(bundle);
         // nothing
     }
 

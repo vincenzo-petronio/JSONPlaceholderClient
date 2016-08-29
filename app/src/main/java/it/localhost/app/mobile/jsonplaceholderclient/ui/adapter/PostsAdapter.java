@@ -1,6 +1,9 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.adapter;
 
+import com.google.gson.Gson;
+
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
+import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 
 /**
  *
@@ -54,7 +58,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     /**
      *
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvSubTitle) TextView tvSubTitle;
@@ -67,7 +71,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    sOnItemClickListener.onItemClick(itemView, getLayoutPosition());
+                    Post post = posts.get(getLayoutPosition());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.BUNDLE_KEY_ITEM, new Gson().toJson(post));
+
+                    sOnItemClickListener.onItemClick(bundle);
                 }
             });
         }

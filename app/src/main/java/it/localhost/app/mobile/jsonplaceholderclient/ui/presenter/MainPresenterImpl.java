@@ -83,7 +83,6 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorListener 
     }
 
     // INTERACTOR CALLBACK
-
     @Override
     public void onDataSuccess(List<String> items) {
         mMainView.setItems(items);
