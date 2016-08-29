@@ -2,6 +2,7 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
  */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
+    private static final String TAG = "PostsAdapter";
     private List<Post> posts;
     private Context context;
+    private static OnItemClickListener sOnItemClickListener;
 
     /**
      * Costruttore
@@ -40,16 +43,31 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     }
 
     /**
+     * @param onItemClickListener OnItemClickListener
+     */
+    public static void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        sOnItemClickListener = onItemClickListener;
+    }
+
+    /**
      *
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTitle, tvSubTitle;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvSubTitle = (TextView) itemView.findViewById(R.id.tvSubTitle);
+
+            // LISTENER
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sOnItemClickListener.onItemClick(itemView, getLayoutPosition());
+                }
+            });
         }
     }
 
@@ -74,13 +92,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
         holder.tvTitle.setText(post.getTitle());
-        holder.tvSubTitle.setText(String.format(Locale.getDefault(), "%d", post.getUserId()));
+        try {
+            holder.tvSubTitle.setText(String.format(Locale.getDefault(), "%d", post.getUserId()));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception", e);
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return posts != null ? posts.size() : 0;
     }
-
 
 }

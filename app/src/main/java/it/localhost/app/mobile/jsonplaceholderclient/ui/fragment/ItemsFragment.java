@@ -22,6 +22,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.OnItemClickListener;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.PostsAdapter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
@@ -128,10 +129,26 @@ public class ItemsFragment extends Fragment implements ApiView {
         presenter.requestItems();
     }
 
+    private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+        @Override
+        public void onItemClick(View itemView, int position) {
+            Log.v(TAG, "OnItemClickListener: " + Integer.toString(position));
+
+//            itemView.
+
+//                Post post = ((List<Post>)items).get(position);
+
+            // Passare attraverso il Presenter per fare logica!
+//            presenter.onSelectedItem(Integer.toString(position));
+
+        }
+    };
+
     // VIEW METHOD
     @Override
-    public void setItems(List<?> items) {
+    public void setItems(final List<?> items) {
         PostsAdapter adapter = new PostsAdapter((List<Post>) items, getContext());
+        adapter.setOnItemClickListener(mOnItemClickListener);
         rvItems.setAdapter(adapter);
         rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -154,4 +171,5 @@ public class ItemsFragment extends Fragment implements ApiView {
         // Essendo un Fragment passo il controllo all'Activity attraverso la Callback
         mListener.loadDetailsFragment();
     }
+
 }

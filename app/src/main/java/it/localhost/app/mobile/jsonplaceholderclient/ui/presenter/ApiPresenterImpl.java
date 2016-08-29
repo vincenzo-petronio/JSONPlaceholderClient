@@ -33,8 +33,7 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
 
     @Override
     public void onSelectedItem(String s) {
-        // TODO
-        Log.v(TAG, "onSelectedItem");
+        // nothing
     }
 
     // INTERACTOR CALLBACK
