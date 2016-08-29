@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 
@@ -53,13 +55,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      *
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTitle, tvSubTitle;
+
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvSubTitle) TextView tvSubTitle;
 
         public ViewHolder(final View itemView) {
             super(itemView);
-
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            tvSubTitle = (TextView) itemView.findViewById(R.id.tvSubTitle);
+            ButterKnife.bind(this, itemView);
 
             // LISTENER
             itemView.setOnClickListener(new View.OnClickListener() {
