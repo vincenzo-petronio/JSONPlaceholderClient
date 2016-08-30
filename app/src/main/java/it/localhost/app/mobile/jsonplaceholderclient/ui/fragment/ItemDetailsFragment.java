@@ -3,7 +3,6 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,6 @@ public class ItemDetailsFragment extends Fragment {
         //TODO
         if (getArguments() != null) {
             String s = getArguments().getString(Constants.BUNDLE_KEY_ITEM);
-            Log.i("ItemDetailsFragment", s);
         }
     }
 
