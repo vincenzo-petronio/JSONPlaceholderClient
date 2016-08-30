@@ -6,11 +6,13 @@ import java.util.List;
 
 /**
  * Interfaccia tra Fragment e Presenter.<br />
- * Contiene i metodi che ItemsFragment deve implementare per dialogare con gli elementi della UI
+ * Contiene i metodi che il Fragment deve implementare per dialogare con gli elementi della UI
  */
 public interface ApiView {
 
     void setItems(List<?> items);
+
+    void setItem(Object item);
 
     void showMessage(String message);
 

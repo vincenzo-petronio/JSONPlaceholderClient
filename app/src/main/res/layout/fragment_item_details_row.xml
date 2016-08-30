@@ -17,11 +17,29 @@
         tools:text="@string/fake_text" />
 
     <TextView
-        android:id="@+id/tvSubTitle"
+        android:id="@+id/tvUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="@string/fake_digits" />
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="@string/fake_digits" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="6"
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="@string/fake_text_long" />
 </LinearLayout>

@@ -54,7 +54,6 @@ public class ItemsFragment extends Fragment implements ApiView {
      * @return A new instance of fragment ItemsFragment.
      */
     public static ItemsFragment newInstance(String param) {
-        Log.i(TAG, param);
         ItemsFragment fragment = new ItemsFragment();
         Bundle args = new Bundle();
         args.putString(Constants.BUNDLE_KEY_API, param);
@@ -81,7 +80,6 @@ public class ItemsFragment extends Fragment implements ApiView {
         super.onCreate(savedInstanceState);
 
         initDependencyInjector();
-
     }
 
     @Override
@@ -92,7 +90,7 @@ public class ItemsFragment extends Fragment implements ApiView {
         // BUNDLE
         try {
             bundleApiValue = getArguments().getString(Constants.BUNDLE_KEY_API);
-            Log.i(TAG, bundleApiValue);
+            Log.v(TAG, bundleApiValue);
         } catch (Exception e) {
             Log.e(TAG, "Exception", e);
 
@@ -154,6 +152,11 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     @Override
+    public void setItem(Object item) {
+        // not used
+    }
+
+    @Override
     public void showMessage(String message) {
         // TODO
     }
@@ -169,6 +172,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     @Override
     public void launchNextView(Bundle bundle) {
         // Essendo un Fragment passo il controllo all'Activity attraverso la Callback
+        bundle.putString(Constants.BUNDLE_KEY_API, bundleApiValue);
         mListener.loadDetailsFragment(bundle);
     }
 

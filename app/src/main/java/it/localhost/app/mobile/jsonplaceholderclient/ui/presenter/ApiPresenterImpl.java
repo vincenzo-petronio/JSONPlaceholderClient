@@ -1,7 +1,6 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 

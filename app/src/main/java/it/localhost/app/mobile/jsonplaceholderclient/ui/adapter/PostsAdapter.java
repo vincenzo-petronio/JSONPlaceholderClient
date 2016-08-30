@@ -25,7 +25,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
  */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
-    private static final String TAG = "PostsAdapter";
+    private static final String TAG = PostsAdapter.class.getSimpleName();
     private List<Post> posts;
     private Context context;
     private static OnItemClickListener sOnItemClickListener;
@@ -60,8 +60,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvSubTitle) TextView tvSubTitle;
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
+        @BindView(R.id.tvSubTitle)
+        TextView tvSubTitle;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -99,6 +101,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         //GUARD-CLAUSE
         if (post == null) {
+            Log.e(TAG, "Post NULL!!!");
             return;
         }
 
