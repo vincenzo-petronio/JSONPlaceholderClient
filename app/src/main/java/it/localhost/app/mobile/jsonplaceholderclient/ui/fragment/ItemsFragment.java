@@ -20,8 +20,10 @@ import butterknife.ButterKnife;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
+import it.localhost.app.mobile.jsonplaceholderclient.data.model.Comment;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.CommentsAdapter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.OnItemClickListener;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.PostsAdapter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
@@ -124,7 +126,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     private void initPresenter() {
-        presenter.requestItems();
+        presenter.requestItems(bundleApiValue);
     }
 
     /**
@@ -145,10 +147,20 @@ public class ItemsFragment extends Fragment implements ApiView {
     // VIEW METHOD
     @Override
     public void setItems(final List<?> items) {
-        PostsAdapter adapter = new PostsAdapter((List<Post>) items, getContext());
-        adapter.setOnItemClickListener(mOnItemClickListener);
-        rvItems.setAdapter(adapter);
-        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        switch (bundleApiValue) {
+            case "posts":
+                PostsAdapter adapter1 = new PostsAdapter((List<Post>) items, getContext());
+                adapter1.setOnItemClickListener(mOnItemClickListener);
+                rvItems.setAdapter(adapter1);
+                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                break;
+            case "comments":
+                CommentsAdapter adapter2 = new CommentsAdapter((List<Comment>) items);
+                adapter2.setOnItemClickListener(mOnItemClickListener);
+                rvItems.setAdapter(adapter2);
+                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                break;
+        }
     }
 
     @Override

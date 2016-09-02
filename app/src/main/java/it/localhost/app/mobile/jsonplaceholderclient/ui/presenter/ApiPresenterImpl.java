@@ -27,8 +27,17 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
     }
 
     @Override
-    public void requestItems() {
-        mApiInteractor.getApi(ApiPresenterImpl.this);
+    public void requestItems(String arg) {
+        switch (arg) {
+            case "posts":
+                break;
+            case "comments":
+                break;
+            default:
+                break;
+        }
+
+        mApiInteractor.getApi(ApiPresenterImpl.this, arg);
     }
 
     @Override

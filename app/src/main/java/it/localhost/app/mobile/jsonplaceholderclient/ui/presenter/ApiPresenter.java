@@ -7,7 +7,7 @@ import android.os.Bundle;
  */
 public interface ApiPresenter {
 
-    void requestItems();
+    void requestItems(String arg);
 
     void onSelectedItem(Bundle bundle);
 }

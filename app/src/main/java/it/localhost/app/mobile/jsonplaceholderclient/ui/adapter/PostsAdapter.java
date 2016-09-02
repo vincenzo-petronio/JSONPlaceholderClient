@@ -111,7 +111,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         } catch (Exception e) {
             Log.e(TAG, "Exception", e);
         }
-
     }
 
     @Override

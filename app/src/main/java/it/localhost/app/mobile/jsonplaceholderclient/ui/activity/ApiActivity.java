@@ -56,7 +56,6 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     private void initUi() {
