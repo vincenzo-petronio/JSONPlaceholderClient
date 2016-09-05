@@ -2,22 +2,30 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.presenter;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractor;
-import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractorListener;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.Subscriptions;
 
 /**
  *
  */
-public class MainPresenterImpl implements MainPresenter, MainInteractorListener {
+public class MainPresenterImpl implements MainPresenter, Observer<String> {
 
+    private static final String TAG = MainPresenterImpl.class.getSimpleName();
     private MainView mMainView;
     private MainInteractor mMainInteractor;
+    private Subscription mSubscription = Subscriptions.empty();;
 
     public MainPresenterImpl(MainView mainView, MainInteractor interactor) {
         mMainView = mainView;
@@ -39,7 +47,10 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorListener 
 
             @Override
             public void onFinish() {
-                mMainInteractor.getAvailableApi(MainPresenterImpl.this);
+                mSubscription = mMainInteractor.getAvailableApi()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(MainPresenterImpl.this);
             }
         }.start();
     }
@@ -82,16 +93,25 @@ public class MainPresenterImpl implements MainPresenter, MainInteractorListener 
         }
     }
 
-    // INTERACTOR CALLBACK
+    // RX INTERACTOR CALLBACK
+    List<String> items = new ArrayList<>();
     @Override
-    public void onDataSuccess(List<String> items) {
+    public void onCompleted() {
+        Log.i(TAG, "[RX] onCompleted");
+        mMainView.showProgress(false);
         mMainView.setItems(items);
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        Log.e(TAG, "[RX] onError: ", e);
+        mMainView.showMessage(e.getMessage());
         mMainView.showProgress(false);
     }
 
     @Override
-    public void onDataError(Exception e) {
-        mMainView.showMessage(e.getMessage());
-        mMainView.showProgress(false);
+    public void onNext(String s) {
+        Log.v(TAG, "[RX] onNext: " + s);
+        items.add(s);
     }
 }
