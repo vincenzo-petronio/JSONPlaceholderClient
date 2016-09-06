@@ -7,6 +7,5 @@ import rx.Observable;
  */
 public interface MainInteractor {
 
-    //    void getAvailableApi(MainInteractorListener listener);
     Observable<String> getAvailableApi();
 }

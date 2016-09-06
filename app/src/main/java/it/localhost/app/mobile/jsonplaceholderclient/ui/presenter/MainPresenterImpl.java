@@ -25,7 +25,7 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
     private static final String TAG = MainPresenterImpl.class.getSimpleName();
     private MainView mMainView;
     private MainInteractor mMainInteractor;
-    private Subscription mSubscription = Subscriptions.empty();;
+    private Subscription mSubscription = Subscriptions.empty();
 
     public MainPresenterImpl(MainView mainView, MainInteractor interactor) {
         mMainView = mainView;
