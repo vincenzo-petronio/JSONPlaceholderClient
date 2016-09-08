@@ -42,12 +42,15 @@ public class ItemsFragment extends Fragment implements ApiView {
     ApiPresenter presenter;
     @BindView(R.id.rvItems)
     RecyclerView rvItems;
+
+    // TODO
+    // Serve un Factory per ottenere un adapter generico ed evitare di usare switch ovunque,
+    // oltre che l'injection di diversi oggetti!
     @Inject
     PostsAdapter mPostsAdapter;
     @Inject
     CommentsAdapter mCommentsAdapter;
-
-
+    
     public ItemsFragment() {
         setRetainInstance(true);
     }
@@ -134,13 +137,26 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     private void initUi() {
-        mPostsAdapter.setOnItemClickListener(mOnItemClickListener);
-        rvItems.setAdapter(mPostsAdapter);
-        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mCommentsAdapter.setOnItemClickListener(mOnItemClickListener);
-        rvItems.setAdapter(mCommentsAdapter);
-        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+        switch (bundleApiValue) {
+            case "posts":
+                mPostsAdapter.setOnItemClickListener(mOnItemClickListener);
+                rvItems.setAdapter(mPostsAdapter);
+                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                break;
+            case "comments":
+                mCommentsAdapter.setOnItemClickListener(mOnItemClickListener);
+                rvItems.setAdapter(mCommentsAdapter);
+                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                break;
+        }
+//        mPostsAdapter.setOnItemClickListener(mOnItemClickListener);
+//        rvItems.setAdapter(mPostsAdapter);
+//        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//        mCommentsAdapter.setOnItemClickListener(mOnItemClickListener);
+//        rvItems.setAdapter(mCommentsAdapter);
+//        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void initPresenter() {
