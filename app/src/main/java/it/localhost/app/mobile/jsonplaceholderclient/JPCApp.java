@@ -1,5 +1,7 @@
 package it.localhost.app.mobile.jsonplaceholderclient;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import android.app.Application;
 
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.components.AppComponent;
@@ -18,6 +20,8 @@ public class JPCApp extends Application {
         super.onCreate();
         appInstance = this;
         getAppComponent();
+
+        initLeakDetection();
     }
 
     /**
@@ -37,5 +41,14 @@ public class JPCApp extends Application {
                     .build();
         }
         return sAppComponent;
+    }
+
+    /**
+     * @see <a href="https://github.com/square/leakcanary">LeakCanary</a>
+     */
+    private void initLeakDetection() {
+        if (BuildConfig.DEBUG) {
+            LeakCanary.install(this);
+        }
     }
 }

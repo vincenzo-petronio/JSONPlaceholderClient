@@ -41,8 +41,10 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
 
         initDependencyInjector();
         initUi();
-//        initPresenter();
-
+        if (savedInstanceState == null) {
+            initFragment();
+        }
+        
         /**
          * Il Presenter lo utilizzo per il Fragment,
          * non per l'Activity che attualmente non ha compiti e non contiene dati.
@@ -50,7 +52,7 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
          * Eventualmente si poteva utilizzare lo stesso Presenter per dialogare con l'Interactor
          * sia dall'Activity che dal Fragment figlio.
          */
-
+//        initPresenter();
     }
 
     @Override
@@ -58,21 +60,22 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
         super.onDestroy();
     }
 
+    private void initDependencyInjector() {
+//        ((JPCApp) getApplication()).getAppComponent().plus(new ApiModule()).inject(this);
+    }
+
     private void initUi() {
         setContentView(R.layout.activity_api);
         ButterKnife.bind(this);
+    }
 
-        // Fragment
+    private void initFragment() {
         Fragment itemsFragment = ItemsFragment.newInstance(bundleApiValue);
         itemsFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragItems, itemsFragment)
                 .commit();
-    }
-
-    private void initDependencyInjector() {
-//        ((JPCApp) getApplication()).getAppComponent().plus(new ApiModule()).inject(this);
     }
 
 //    private void initPresenter() {
