@@ -42,10 +42,14 @@ public class ItemsFragment extends Fragment implements ApiView {
     ApiPresenter presenter;
     @BindView(R.id.rvItems)
     RecyclerView rvItems;
+    @Inject
+    PostsAdapter mPostsAdapter;
+    @Inject
+    CommentsAdapter mCommentsAdapter;
 
 
     public ItemsFragment() {
-        // Required empty public constructor
+        setRetainInstance(true);
     }
 
     /**
@@ -103,6 +107,8 @@ public class ItemsFragment extends Fragment implements ApiView {
         View view = inflater.inflate(R.layout.fragment_items, container, false);
         ButterKnife.bind(this, view);
 
+        initUi();
+
         return view;
     }
 
@@ -111,7 +117,9 @@ public class ItemsFragment extends Fragment implements ApiView {
         Log.v(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
+//        if (savedInstanceState == null) {
         initPresenter();
+//        }
     }
 
     @Override
@@ -123,6 +131,16 @@ public class ItemsFragment extends Fragment implements ApiView {
 
     private void initDependencyInjector() {
         ((JPCApp) getActivity().getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
+    }
+
+    private void initUi() {
+        mPostsAdapter.setOnItemClickListener(mOnItemClickListener);
+        rvItems.setAdapter(mPostsAdapter);
+        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mCommentsAdapter.setOnItemClickListener(mOnItemClickListener);
+        rvItems.setAdapter(mCommentsAdapter);
+        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void initPresenter() {
@@ -149,16 +167,10 @@ public class ItemsFragment extends Fragment implements ApiView {
     public void setItems(final List<?> items) {
         switch (bundleApiValue) {
             case "posts":
-                PostsAdapter adapter1 = new PostsAdapter((List<Post>) items, getContext());
-                adapter1.setOnItemClickListener(mOnItemClickListener);
-                rvItems.setAdapter(adapter1);
-                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                mPostsAdapter.updateCollection((List<Post>) items);
                 break;
             case "comments":
-                CommentsAdapter adapter2 = new CommentsAdapter((List<Comment>) items);
-                adapter2.setOnItemClickListener(mOnItemClickListener);
-                rvItems.setAdapter(adapter2);
-                rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
+                mCommentsAdapter.updateCollection((List<Comment>) items);
                 break;
         }
     }

@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,25 +30,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     private static final String TAG = PostsAdapter.class.getSimpleName();
     private List<Post> posts;
-    private Context context;
     private static OnItemClickListener sOnItemClickListener;
 
     /**
      * Costruttore
-     *
-     * @param posts   List<Post>
-     * @param context Context
      */
-    public PostsAdapter(List<Post> posts, Context context) {
-        this.posts = posts;
-        this.context = context;
-    }
-
-    /**
-     * @return Context
-     */
-    public Context getContext() {
-        return context;
+    @Inject
+    public PostsAdapter() {
+        this.posts = Collections.emptyList();
     }
 
     /**
@@ -68,19 +60,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
-            // LISTENER
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Post post = posts.get(getLayoutPosition());
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.BUNDLE_KEY_ITEM, new Gson().toJson(post));
-
-                    sOnItemClickListener.onItemClick(bundle);
-                }
-            });
         }
     }
 
@@ -97,7 +76,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Post post = posts.get(position);
+        final Post post = posts.get(position);
 
         //GUARD-CLAUSE
         if (post == null) {
@@ -111,11 +90,38 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         } catch (Exception e) {
             Log.e(TAG, "Exception", e);
         }
+
+        // LISTENER
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.BUNDLE_KEY_ITEM, new Gson().toJson(post));
+
+                if (PostsAdapter.this.sOnItemClickListener != null) {
+                    sOnItemClickListener.onItemClick(bundle);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return posts != null ? posts.size() : 0;
+    }
+
+    /**
+     *
+     * @param collection
+     */
+    public void updateCollection(List<Post> collection) {
+
+        if (collection == null) {
+            throw new IllegalArgumentException("collection NULL!!!");
+        }
+
+        posts = collection;
+        notifyDataSetChanged();
     }
 
 }

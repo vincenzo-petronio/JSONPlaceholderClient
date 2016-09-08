@@ -44,7 +44,7 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
         if (savedInstanceState == null) {
             initFragment();
         }
-        
+
         /**
          * Il Presenter lo utilizzo per il Fragment,
          * non per l'Activity che attualmente non ha compiti e non contiene dati.

@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +34,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     /**
      * Costruttore
-     *
-     * @param comments List<Comment>
      */
-    public CommentsAdapter(List<Comment> comments) {
-        this.comments = comments;
+    @Inject
+    public CommentsAdapter() {
+        this.comments = Collections.emptyList();
     }
 
     /**
@@ -58,7 +60,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Comment comment = comments.get(position);
+        final Comment comment = comments.get(position);
 
         //GUARD-CLAUSE
         if (comment == null) {
@@ -72,6 +74,19 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         } catch (Exception e) {
             Log.e(TAG, "Exception", e);
         }
+
+        // LISTENER
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.BUNDLE_KEY_ITEM, new Gson().toJson(comment));
+
+                if (CommentsAdapter.this.sOnItemClickListener != null) {
+                    sOnItemClickListener.onItemClick(bundle);
+                }
+            }
+        });
     }
 
     @Override
@@ -88,19 +103,20 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
-            // LISTENER
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Comment comment = comments.get(getLayoutPosition());
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.BUNDLE_KEY_ITEM, new Gson().toJson(comment));
-
-                    sOnItemClickListener.onItemClick(bundle);
-                }
-            });
         }
+    }
+
+    /**
+     *
+     * @param collection
+     */
+    public void updateCollection(List<Comment> collection) {
+
+        if (collection == null) {
+            throw new IllegalArgumentException("collection NULL!!!");
+        }
+
+        comments = collection;
+        notifyDataSetChanged();
     }
 }
