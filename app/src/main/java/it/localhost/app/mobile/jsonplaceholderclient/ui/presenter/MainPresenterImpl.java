@@ -95,6 +95,7 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
 
     // RX INTERACTOR CALLBACK
     List<String> items = new ArrayList<>();
+
     @Override
     public void onCompleted() {
         Log.i(TAG, "[RX] onCompleted");

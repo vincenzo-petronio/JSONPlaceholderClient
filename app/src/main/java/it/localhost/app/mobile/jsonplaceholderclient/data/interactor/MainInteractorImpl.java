@@ -22,7 +22,7 @@ public class MainInteractorImpl implements MainInteractor {
      */
     public Observable<String> getAvailableApi() {
         if (mResources == null) {
-            return  Observable.error(new NullPointerException("mResources NULL!!!"));
+            return Observable.error(new NullPointerException("mResources NULL!!!"));
         }
         return Observable.from(mResources.getStringArray(R.array.main_menu));
     }

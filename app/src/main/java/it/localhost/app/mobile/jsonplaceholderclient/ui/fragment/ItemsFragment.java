@@ -50,7 +50,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     PostsAdapter mPostsAdapter;
     @Inject
     CommentsAdapter mCommentsAdapter;
-    
+
     public ItemsFragment() {
         setRetainInstance(true);
     }
