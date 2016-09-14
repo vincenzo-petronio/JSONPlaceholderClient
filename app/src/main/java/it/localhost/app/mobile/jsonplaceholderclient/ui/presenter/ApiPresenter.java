@@ -5,7 +5,7 @@ import android.os.Bundle;
 /**
  *
  */
-public interface ApiPresenter {
+public interface ApiPresenter extends BasePresenter {
 
     void requestItems(String arg);
 

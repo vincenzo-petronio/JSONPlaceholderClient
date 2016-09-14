@@ -130,6 +130,7 @@ public class ItemsFragment extends Fragment implements ApiView {
         Log.v(TAG, "onDetach");
         super.onDetach();
         mListener = null;
+        presenter.finish();
     }
 
     private void initDependencyInjector() {

@@ -6,10 +6,14 @@ import javax.inject.Inject;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.ApiService;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Comment;
-import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.Subscriptions;
 
 /**
  *
@@ -19,6 +23,8 @@ public class ApiInteractorImpl implements ApiInteractor {
     @Inject
     ApiService mApiService;
     private ApiInteractorListener mListener;
+    private Subscription mSubscription = Subscriptions.empty();
+    private Subscriber mSubscriber;
 
     /**
      * Costruttore
@@ -30,8 +36,9 @@ public class ApiInteractorImpl implements ApiInteractor {
     }
 
     @Override
-    public void getApi(ApiInteractorListener listener, String api) {
+    public void getApi(ApiInteractorListener listener, String api, Subscriber subscriber) {
         mListener = listener;
+        mSubscriber = subscriber;
 
         // GUARD-CLAUSE
         if (mApiService == null) {
@@ -52,18 +59,18 @@ public class ApiInteractorImpl implements ApiInteractor {
 
     }
 
-    private void getPosts() {
-        mApiService.getPosts().enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                mListener.onDataSuccess(response.body());
-            }
+    @Override
+    public void unsubscribe() {
+        if (!mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+    }
 
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                mListener.onDataError(new Exception("Resources NULL!"));
-            }
-        });
+    private void getPosts() {
+        mSubscription = mApiService.getPosts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
     }
 
     private void getComments() {
