@@ -1,14 +1,8 @@
 package it.localhost.app.mobile.jsonplaceholderclient.data.interactor;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.ApiService;
-import it.localhost.app.mobile.jsonplaceholderclient.data.model.Comment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,7 +16,6 @@ public class ApiInteractorImpl implements ApiInteractor {
 
     @Inject
     ApiService mApiService;
-    private ApiInteractorListener mListener;
     private Subscription mSubscription = Subscriptions.empty();
     private Subscriber mSubscriber;
 
@@ -36,8 +29,7 @@ public class ApiInteractorImpl implements ApiInteractor {
     }
 
     @Override
-    public void getApi(ApiInteractorListener listener, String api, Subscriber subscriber) {
-        mListener = listener;
+    public void getApi(Subscriber subscriber, String api) {
         mSubscriber = subscriber;
 
         // GUARD-CLAUSE
@@ -74,16 +66,9 @@ public class ApiInteractorImpl implements ApiInteractor {
     }
 
     private void getComments() {
-        mApiService.getComments().enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                mListener.onDataSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
-                mListener.onDataError(new Exception("Resources NULL!"));
-            }
-        });
+        mSubscription = mApiService.getComments()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
     }
 }

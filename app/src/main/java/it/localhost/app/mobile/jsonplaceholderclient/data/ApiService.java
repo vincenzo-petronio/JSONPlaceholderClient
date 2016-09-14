@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Comment;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -17,5 +16,5 @@ public interface ApiService {
     Observable<List<Post>> getPosts();
 
     @GET("/comments")
-    Call<List<Comment>> getComments();
+    Observable<List<Comment>> getComments();
 }

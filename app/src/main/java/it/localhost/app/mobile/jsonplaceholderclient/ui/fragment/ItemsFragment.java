@@ -151,13 +151,6 @@ public class ItemsFragment extends Fragment implements ApiView {
                 rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
                 break;
         }
-//        mPostsAdapter.setOnItemClickListener(mOnItemClickListener);
-//        rvItems.setAdapter(mPostsAdapter);
-//        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//        mCommentsAdapter.setOnItemClickListener(mOnItemClickListener);
-//        rvItems.setAdapter(mCommentsAdapter);
-//        rvItems.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void initPresenter() {

@@ -12,7 +12,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
 /**
  *
  */
-public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
+public class ApiPresenterImpl implements ApiPresenter {
 
     private static final String TAG = ApiPresenterImpl.class.getSimpleName();
     private ApiView mApiView;
@@ -38,7 +38,7 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
                 break;
         }
 
-        mApiInteractor.getApi(ApiPresenterImpl.this, arg, new ApiSubscriber());
+        mApiInteractor.getApi(new ApiSubscriber(), arg);
     }
 
     @Override
@@ -52,38 +52,7 @@ public class ApiPresenterImpl implements ApiPresenter, ApiInteractorListener {
         mApiInteractor.unsubscribe();
     }
 
-    // INTERACTOR CALLBACK
-    @Override
-    public void onDataSuccess(List<?> items) {
-        mApiView.showProgress(false);
-        mApiView.setItems(items);
-    }
-
-    @Override
-    public void onDataError(Exception e) {
-        mApiView.showProgress(false);
-    }
-
     // RX SUBSCRIBER/CALLBACK
-//    private final class MySubscriber extends CustomSubscriber<List<?>> {
-//
-//        @Override
-//        public void onCompleted() {
-//            mApiView.showProgress(false);
-//        }
-//
-//        @Override
-//        public void onError(Throwable e) {
-//            mApiView.showProgress(false);
-//        }
-//
-//        @Override
-//        public void onNext(List<?> items) {
-//            Log.v(TAG, "onNext");
-//            mApiView.setItems(items);
-//        }
-//    }
-
     /**
      *
      */

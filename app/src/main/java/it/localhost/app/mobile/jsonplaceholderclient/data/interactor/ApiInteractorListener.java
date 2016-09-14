@@ -3,7 +3,7 @@ package it.localhost.app.mobile.jsonplaceholderclient.data.interactor;
 import java.util.List;
 
 /**
- *
+ * @deprecated
  */
 public interface ApiInteractorListener {
 
