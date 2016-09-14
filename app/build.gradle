@@ -15,10 +15,35 @@ android {
 //            enabled true
 //        }
     }
+//    signingConfigs {
+//        debug {
+//            try {
+//                storeFile file("debug.keystore")
+//                storePassword KEYSTORE_PASSWORD
+//                keyAlias "alias"
+//                keyPassword KEY_PASSWORD
+//            }
+//            catch (ex) {
+//                throw new InvalidUserDataException("You should define KEYS in gradle.properties.")
+//            }
+//        }
+//        release {
+//            try {
+//                storeFile file("release.keystore")
+//                storePassword KEYSTORE_PASSWORD
+//                keyAlias "alias"
+//                keyPassword KEY_PASSWORD
+//            }
+//            catch (ex) {
+//                throw new InvalidUserDataException("You should define KEYS in gradle.properties.")
+//            }
+//        }
+//    }
     buildTypes {
         debug {
             minifyEnabled false
             useProguard false
+            versionNameSuffix '_DEBUG'
         }
         release {
             minifyEnabled true
@@ -41,7 +66,7 @@ android {
 ext {
     JUNIT_VERSION = '4.12'
     DAGGER_VERSION = '2.5'
-    SUPPORT_VERSION = '24.2.0'
+    SUPPORT_VERSION = '24.2.1'
     LEAKCANARY_VERSION = '1.4-beta2'
 }
 
