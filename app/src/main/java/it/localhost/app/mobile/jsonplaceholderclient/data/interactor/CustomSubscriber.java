@@ -13,16 +13,16 @@ public class CustomSubscriber<T> extends Subscriber {
 
     @Override
     public void onCompleted() {
-        Log.d(TAG, "onCompleted");
+        Log.v(TAG, "[RX]onCompleted ");
     }
 
     @Override
     public void onError(Throwable e) {
-        Log.d(TAG, "onError");
+        Log.e(TAG, "[RX]onError ", e);
     }
 
     @Override
     public void onNext(Object o) {
-        Log.d(TAG, "onNext");
+        Log.v(TAG, "[RX]onNext ");
     }
 }

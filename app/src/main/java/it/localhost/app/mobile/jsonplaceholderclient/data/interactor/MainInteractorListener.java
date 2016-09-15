@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Callback tra Interactor e Presenter
+ *
+ * @deprecated
  */
 public interface MainInteractorListener {
     void onDataSuccess(List<String> items);

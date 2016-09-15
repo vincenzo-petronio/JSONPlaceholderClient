@@ -8,4 +8,6 @@ import rx.Observable;
 public interface MainInteractor {
 
     Observable<String> getAvailableApi();
+
+    void unsubscribe();
 }

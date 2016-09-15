@@ -93,26 +93,32 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
         }
     }
 
+    @Override
+    public void finish() {
+        mSubscription.unsubscribe();
+    }
+
     // RX INTERACTOR CALLBACK
     List<String> items = new ArrayList<>();
 
     @Override
     public void onCompleted() {
-        Log.i(TAG, "[RX] onCompleted");
+        Log.v(TAG, "[RX]onCompleted ");
         mMainView.showProgress(false);
         mMainView.setItems(items);
     }
 
     @Override
     public void onError(Throwable e) {
-        Log.e(TAG, "[RX] onError: ", e);
+        Log.e(TAG, "[RX]onError ", e);
         mMainView.showMessage(e.getMessage());
         mMainView.showProgress(false);
     }
 
     @Override
     public void onNext(String s) {
-        Log.v(TAG, "[RX] onNext: " + s);
+        Log.v(TAG, "[RX]onNext ");
         items.add(s);
     }
+
 }
