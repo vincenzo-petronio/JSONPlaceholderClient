@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @OnItemClick(R.id.lvItems)
     public void onItemsClick(int position) {
         String s = (String) lvItems.getItemAtPosition(position);
-        presenter.onSelectedItem(s);
+        presenter.onSelectedItem(s.toLowerCase());
     }
 
     @Override

@@ -35,9 +35,9 @@ public abstract class AInteractor {
     @SuppressWarnings("unchecked")
     public void connect(Subscriber subscriber) {
         subscription = this.getObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribeOn(Schedulers.io()) // changes the Scheduler where the Observable should operate.
+                .observeOn(AndroidSchedulers.mainThread()) // changes the Scheduler where the Observable will send notifications.
+                .subscribe(subscriber); // connect Observable with Subscriber/Observer
     }
 
     public void unsubscribe() {

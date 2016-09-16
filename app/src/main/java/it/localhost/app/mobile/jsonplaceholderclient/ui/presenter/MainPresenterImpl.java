@@ -14,6 +14,7 @@ import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
@@ -50,6 +51,7 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
                 mSubscription = mMainInteractor.getAvailableApi()
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
+                        .map(toUpperCaseFunc)
                         .subscribe(MainPresenterImpl.this);
             }
         }.start();
@@ -121,4 +123,12 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
         items.add(s);
     }
 
+    //
+
+    private Func1<String, String> toUpperCaseFunc = new Func1<String, String>() {
+        @Override
+        public String call(String s) {
+            return s.toUpperCase();
+        }
+    };
 }
