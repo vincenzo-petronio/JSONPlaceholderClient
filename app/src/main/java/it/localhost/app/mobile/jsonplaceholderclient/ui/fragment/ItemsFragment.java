@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
@@ -30,6 +31,8 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 
+import static butterknife.ButterKnife.bind;
+
 /**
  *
  */
@@ -38,6 +41,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     private static final String TAG = ItemsFragment.class.getSimpleName();
     private ItemsFragmentCallback mListener;
     private String bundleApiValue;
+    private Unbinder mUnbinder;
     @Inject
     ApiPresenter presenter;
     @BindView(R.id.rvItems)
@@ -108,7 +112,7 @@ public class ItemsFragment extends Fragment implements ApiView {
 
         // VIEW
         View view = inflater.inflate(R.layout.fragment_items, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
 
         initUi();
 
@@ -123,6 +127,12 @@ public class ItemsFragment extends Fragment implements ApiView {
 //        if (savedInstanceState == null) {
         initPresenter();
 //        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     @Override

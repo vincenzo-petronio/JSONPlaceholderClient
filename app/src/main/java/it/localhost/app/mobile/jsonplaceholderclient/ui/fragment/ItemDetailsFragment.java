@@ -18,11 +18,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.adapter.PostAdapter;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
+
+import static butterknife.ButterKnife.bind;
 
 /**
  *
@@ -32,6 +35,7 @@ public class ItemDetailsFragment extends Fragment implements ApiView {
     private static final String TAG = ItemDetailsFragment.class.getSimpleName();
     private ItemsFragmentCallback mListener;
     private String bundleApiValue, bundleItem;
+    private Unbinder mUnbinder;
     @BindView(R.id.rvItems)
     RecyclerView rvItems;
 
@@ -92,7 +96,7 @@ public class ItemDetailsFragment extends Fragment implements ApiView {
 
         // VIEW
         View view = inflater.inflate(R.layout.fragment_items, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -103,6 +107,12 @@ public class ItemDetailsFragment extends Fragment implements ApiView {
         super.onViewCreated(view, savedInstanceState);
 
         initPresenter();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     @Override
