@@ -1,5 +1,6 @@
 package it.localhost.app.mobile.jsonplaceholderclient.dagger.modules;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -11,26 +12,35 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.util.NetworkStateManager;
 
 /**
  * Dagger Module
  */
-@Module
+@Module(subcomponents = {
+        MainComponent.class
+})
 public class AppModule {
-    private final JPCApp mApp;
+//    private final JPCApp mApp;
+//
+//    public AppModule(JPCApp app) {
+//        this.mApp = app;
+//    }
 
-    public AppModule(JPCApp app) {
-        this.mApp = app;
-    }
+//    /**
+//     * @return Context
+//     */
+//    @Singleton
+//    @Provides
+//    public Context provideContext() {
+//        return mApp;
+//    }
 
-    /**
-     * @return Context
-     */
-    @Singleton
     @Provides
-    public Context provideContext() {
-        return mApp;
+    @Singleton
+    Context provideContext(JPCApp application) {
+        return application.getApplicationContext();
     }
 
     /**
@@ -38,8 +48,8 @@ public class AppModule {
      */
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(mApp);
+    SharedPreferences provideSharedPreferences(Context ctx) {
+        return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
     /**
@@ -47,8 +57,8 @@ public class AppModule {
      */
     @Provides
     @Singleton
-    ConnectivityManager provideConnectivityManager() {
-        return (ConnectivityManager) mApp.getSystemService(mApp.CONNECTIVITY_SERVICE);
+    ConnectivityManager provideConnectivityManager(Context ctx) {
+        return (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     /**
@@ -66,8 +76,8 @@ public class AppModule {
      */
     @Provides
     @Singleton
-    Resources provideResources() {
-        return mApp.getResources();
+    Resources provideResources(Context ctx) {
+        return ctx.getResources();
     }
 
 }

@@ -1,31 +1,51 @@
 package it.localhost.app.mobile.jsonplaceholderclient.dagger.components;
 
+import android.app.Application;
+
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
+import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
+import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.ActivityBuilderModule;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
-import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.ApiComponent;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.ApiModule;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
 
 /**
  * Dagger component
  */
 @Component(
         modules = {
-                AppModule.class
+                AndroidInjectionModule.class,
+                AppModule.class,
+                ActivityBuilderModule.class
         }
 )
 @Singleton
 public interface AppComponent {
 
+    /**
+     * @deprecated valido per dagger < 2.10
+     */
     // Un @Subcomponent non può vivere autonomamente, per questo deve essere definito come metodo
     // in una interfaccia annotata come @Component, e tale metodo deve restituire proprio il tipo
     // di interfaccia annotata come @Subcomponent.
     // Tale operazione va ripetuta per ogni Activity annotata come @Subcomponent.
-    MainComponent plus(MainModule mainModule);
+//    MainComponent plus(MainModule mainModule);
+//
+//    ApiComponent plus(ApiModule apiModule, ServiceModule serviceModule);
 
-    ApiComponent plus(ApiModule apiModule, ServiceModule serviceModule);
+    /**
+     * @since dagger 2.10
+     */
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        Builder application(JPCApp application);
+
+        AppComponent build();
+    }
+
+    void inject(JPCApp app);
 }

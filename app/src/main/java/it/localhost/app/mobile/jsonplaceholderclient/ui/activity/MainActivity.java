@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import dagger.android.AndroidInjection;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
+        initDependencyInjector();
+
         super.onCreate(savedInstanceState);
 
-        initDependencyInjector();
         initUi();
         initPresenter();
     }
@@ -49,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void initDependencyInjector() {
-        ((JPCApp) getApplication()).getAppComponent().plus(new MainModule(this)).inject(this);
+//        ((JPCApp) getApplication()).getAppComponent().plus(new MainModule(this)).inject(this);
+        AndroidInjection.inject(this);
     }
 
     private void initPresenter() {

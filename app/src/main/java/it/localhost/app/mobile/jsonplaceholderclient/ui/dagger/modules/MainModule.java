@@ -7,6 +7,7 @@ import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractorImpl;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenterImpl;
@@ -16,25 +17,25 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenterI
  */
 @Module
 public class MainModule {
-    private MainView mMainView;
+//    private MainView mMainView;
 
-    /**
-     * @param mainView MainView
-     */
-    public MainModule(MainView mainView) {
-        mMainView = mainView;
+//    /**
+//     * @param mainView MainView
+//     */
+//    public MainModule(MainView mainView) {
+//        mMainView = mainView;
+//    }
+
+    @Provides
+    @ActivityScope
+    MainView provideMainView(MainActivity mainActivity) {
+        return mainActivity;
     }
 
     @Provides
     @ActivityScope
-    MainView provideMainView() {
-        return mMainView;
-    }
-
-    @Provides
-    @ActivityScope
-    MainPresenter provideMainPresenter(MainInteractor interactor) {
-        return new MainPresenterImpl(mMainView, interactor);
+    MainPresenter provideMainPresenter(MainView mainView, MainInteractor interactor) {
+        return new MainPresenterImpl(mainView, interactor);
     }
 
     @Provides

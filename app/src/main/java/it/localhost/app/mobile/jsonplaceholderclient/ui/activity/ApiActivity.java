@@ -27,6 +27,8 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
+        initDependencyInjector();
+
         super.onCreate(savedInstanceState);
 
         // BUNDLE
@@ -39,7 +41,6 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
             return;
         }
 
-        initDependencyInjector();
         initUi();
         if (savedInstanceState == null) {
             initFragment();
@@ -61,6 +62,7 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
     }
 
     private void initDependencyInjector() {
+        // FIXME
 //        ((JPCApp) getApplication()).getAppComponent().plus(new ApiModule()).inject(this);
     }
 

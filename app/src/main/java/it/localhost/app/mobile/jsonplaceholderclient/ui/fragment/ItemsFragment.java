@@ -144,7 +144,8 @@ public class ItemsFragment extends Fragment implements ApiView {
     }
 
     private void initDependencyInjector() {
-        ((JPCApp) getActivity().getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
+        // FIXME
+//        ((JPCApp) getActivity().getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
     }
 
     private void initUi() {

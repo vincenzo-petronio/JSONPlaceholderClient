@@ -2,6 +2,8 @@ package it.localhost.app.mobile.jsonplaceholderclient.data.interactor;
 
 import android.content.res.Resources;
 
+import javax.inject.Inject;
+
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import rx.Observable;
 
@@ -12,6 +14,7 @@ public class MainInteractorImpl implements MainInteractor {
 
     private Resources mResources;
 
+    @Inject
     public MainInteractorImpl(Resources resources) {
         mResources = resources;
     }

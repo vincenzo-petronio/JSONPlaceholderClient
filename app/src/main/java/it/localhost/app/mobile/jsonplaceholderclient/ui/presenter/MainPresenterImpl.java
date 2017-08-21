@@ -7,6 +7,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.MainInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainView;
@@ -27,6 +29,7 @@ public class MainPresenterImpl implements MainPresenter, Observer<String> {
     private MainInteractor mMainInteractor;
     private Subscription mSubscription = Subscriptions.empty();
 
+    @Inject
     public MainPresenterImpl(MainView mainView, MainInteractor interactor) {
         mMainView = mainView;
         mMainInteractor = interactor;
