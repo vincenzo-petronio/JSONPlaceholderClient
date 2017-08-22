@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.CustomSubscriber;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
@@ -21,6 +23,7 @@ public class ApiPresenterImpl implements ApiPresenter {
      * @param apiView       ApiView
      * @param apiInteractor ApiInteractor
      */
+    @Inject
     public ApiPresenterImpl(ApiView apiView, ApiInteractor apiInteractor) {
         mApiView = apiView;
         mApiInteractor = apiInteractor;

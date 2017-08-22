@@ -6,7 +6,9 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
+import dagger.android.support.DaggerApplication;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.ActivityBuilderModule;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
@@ -16,13 +18,14 @@ import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
  */
 @Component(
         modules = {
-                AndroidInjectionModule.class,
+                /* Use AndroidInjectionModule.class if you're not using support library */
+                AndroidSupportInjectionModule.class,
                 AppModule.class,
                 ActivityBuilderModule.class
         }
 )
 @Singleton
-public interface AppComponent {
+public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
     /**
      * @deprecated valido per dagger < 2.10
@@ -42,10 +45,13 @@ public interface AppComponent {
     interface Builder {
 
         @BindsInstance
-        Builder application(JPCApp application);
+        Builder application(Application application);
 
         AppComponent build();
     }
 
     void inject(JPCApp app);
+
+    @Override
+    void inject(DaggerApplication instance);
 }

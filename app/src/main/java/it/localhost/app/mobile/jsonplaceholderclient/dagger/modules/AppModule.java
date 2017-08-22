@@ -1,6 +1,5 @@
 package it.localhost.app.mobile.jsonplaceholderclient.dagger.modules;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -12,6 +11,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.ApiComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.util.NetworkStateManager;
 
@@ -19,23 +19,10 @@ import it.localhost.app.mobile.jsonplaceholderclient.util.NetworkStateManager;
  * Dagger Module
  */
 @Module(subcomponents = {
-        MainComponent.class
+        MainComponent.class,
+        ApiComponent.class
 })
 public class AppModule {
-//    private final JPCApp mApp;
-//
-//    public AppModule(JPCApp app) {
-//        this.mApp = app;
-//    }
-
-//    /**
-//     * @return Context
-//     */
-//    @Singleton
-//    @Provides
-//    public Context provideContext() {
-//        return mApp;
-//    }
 
     @Provides
     @Singleton

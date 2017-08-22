@@ -17,8 +17,6 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModul
 )
 public interface MainComponent extends AndroidInjector<MainActivity> {
 
-//    void inject(MainActivity mainActivity);
-
     @Subcomponent.Builder
     abstract class Builder extends AndroidInjector.Builder<MainActivity> {
     }

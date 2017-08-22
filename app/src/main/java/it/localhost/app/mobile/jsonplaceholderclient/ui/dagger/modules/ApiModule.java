@@ -2,11 +2,15 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.ActivityScope;
+import it.localhost.app.mobile.jsonplaceholderclient.dagger.FragmentScope;
 import it.localhost.app.mobile.jsonplaceholderclient.data.ApiService;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractor;
 import it.localhost.app.mobile.jsonplaceholderclient.data.interactor.ApiInteractorImpl;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenterImpl;
 
@@ -16,10 +20,10 @@ import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.ApiPresenterIm
 @Module
 public class ApiModule {
     private ApiView mApiView;
-
-    public ApiModule(ApiView apiView) {
-        mApiView = apiView;
-    }
+//
+//    public ApiModule(ApiView apiView) {
+//        mApiView = apiView;
+//    }
 
     @Provides
     @ActivityScope
@@ -27,10 +31,16 @@ public class ApiModule {
         return mApiView;
     }
 
+    @FragmentScope
+    @ContributesAndroidInjector
+    ItemsFragment provideItemsFragment() {
+        return new ItemsFragment();
+    }
+
     @Provides
     @ActivityScope
-    ApiPresenter provideApiPresenter(ApiInteractor apiInteractor) {
-        return new ApiPresenterImpl(mApiView, apiInteractor);
+    ApiPresenter provideApiPresenter(ApiView apiView, ApiInteractor apiInteractor) {
+        return new ApiPresenterImpl(apiView, apiInteractor);
     }
 
     @Provides

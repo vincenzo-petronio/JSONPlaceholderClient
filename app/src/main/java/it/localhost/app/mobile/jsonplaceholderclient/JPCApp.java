@@ -2,30 +2,25 @@ package it.localhost.app.mobile.jsonplaceholderclient;
 
 import com.squareup.leakcanary.LeakCanary;
 
-import android.app.Activity;
-import android.app.Application;
 import android.util.Log;
 
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerApplication;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.components.AppComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.dagger.components.DaggerAppComponent;
-import it.localhost.app.mobile.jsonplaceholderclient.dagger.modules.AppModule;
 
 /**
  *
  */
-public class JPCApp extends Application implements HasActivityInjector {
+public class JPCApp extends DaggerApplication implements HasActivityInjector {
 
     private static final String TAG = JPCApp.class.getSimpleName();
     //    private static AppComponent sAppComponent;
     private static JPCApp appInstance;
 
-    @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+//    @Inject
+//    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -33,7 +28,7 @@ public class JPCApp extends Application implements HasActivityInjector {
         super.onCreate();
         appInstance = this;
 
-        initDagger();
+//        initDagger();
         initLeakDetection();
     }
 
@@ -56,12 +51,12 @@ public class JPCApp extends Application implements HasActivityInjector {
 //        return sAppComponent;
 //    }
 
-    private void initDagger() {
-        DaggerAppComponent
+    private AppComponent initDagger() {
+        return DaggerAppComponent
                 .builder()
                 .application(this)
-                .build()
-                .inject(this);
+                .build();
+//                .inject(this);
     }
 
     /**
@@ -73,8 +68,15 @@ public class JPCApp extends Application implements HasActivityInjector {
         }
     }
 
+//    @Override
+//    public AndroidInjector<Activity> activityInjector() {
+//        return dispatchingAndroidInjector;
+//    }
+
     @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        AppComponent appComponent = initDagger();
+        appComponent.inject(this);
+        return appComponent;
     }
 }

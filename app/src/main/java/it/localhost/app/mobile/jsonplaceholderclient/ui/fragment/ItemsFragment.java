@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.support.AndroidSupportInjection;
+import dagger.android.support.DaggerFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.dagger.modules.ServiceModule;
@@ -36,7 +38,7 @@ import static butterknife.ButterKnife.bind;
 /**
  *
  */
-public class ItemsFragment extends Fragment implements ApiView {
+public class ItemsFragment extends DaggerFragment implements ApiView {
 
     private static final String TAG = ItemsFragment.class.getSimpleName();
     private ItemsFragmentCallback mListener;
@@ -55,6 +57,7 @@ public class ItemsFragment extends Fragment implements ApiView {
     @Inject
     CommentsAdapter mCommentsAdapter;
 
+    @Inject
     public ItemsFragment() {
         setRetainInstance(true);
     }
@@ -91,8 +94,6 @@ public class ItemsFragment extends Fragment implements ApiView {
     public void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-
-        initDependencyInjector();
     }
 
     @Override
@@ -141,11 +142,6 @@ public class ItemsFragment extends Fragment implements ApiView {
         super.onDetach();
         mListener = null;
         presenter.finish();
-    }
-
-    private void initDependencyInjector() {
-        // FIXME
-//        ((JPCApp) getActivity().getApplication()).getAppComponent().plus(new ApiModule(this), new ServiceModule()).inject(this);
     }
 
     private void initUi() {

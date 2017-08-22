@@ -3,7 +3,6 @@ package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,14 +16,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
-import dagger.android.AndroidInjection;
-import it.localhost.app.mobile.jsonplaceholderclient.JPCApp;
+import dagger.android.support.DaggerAppCompatActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
-import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.modules.MainModule;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.presenter.MainPresenter;
 import it.localhost.app.mobile.jsonplaceholderclient.util.NotificationFactory;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends DaggerAppCompatActivity implements MainView {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     @Inject
@@ -37,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
-        initDependencyInjector();
-
         super.onCreate(savedInstanceState);
 
         initUi();
@@ -48,11 +43,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private void initUi() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-    }
-
-    private void initDependencyInjector() {
-//        ((JPCApp) getApplication()).getAppComponent().plus(new MainModule(this)).inject(this);
-        AndroidInjection.inject(this);
     }
 
     private void initPresenter() {

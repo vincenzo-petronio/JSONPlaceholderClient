@@ -1,34 +1,35 @@
 package it.localhost.app.mobile.jsonplaceholderclient.ui.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemDetailsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.fragment.ItemsFragmentCallback;
 import it.localhost.app.mobile.jsonplaceholderclient.util.Constants;
 
-public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallback {
+public class ApiActivity extends DaggerAppCompatActivity implements ItemsFragmentCallback {
 
     private static final String TAG = ApiActivity.class.getSimpleName();
     private String bundleApiValue;
     @BindView(R.id.pb)
     ProgressBar progress;
-    //    @Inject
-//    ApiPresenter presenter;
+    @Inject
+    ItemsFragment mItemsFragment;
+    @Inject
+    ItemDetailsFragment mItemDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
-        initDependencyInjector();
-
         super.onCreate(savedInstanceState);
 
         // BUNDLE
@@ -61,35 +62,27 @@ public class ApiActivity extends AppCompatActivity implements ItemsFragmentCallb
         super.onDestroy();
     }
 
-    private void initDependencyInjector() {
-        // FIXME
-//        ((JPCApp) getApplication()).getAppComponent().plus(new ApiModule()).inject(this);
-    }
-
     private void initUi() {
         setContentView(R.layout.activity_api);
         ButterKnife.bind(this);
     }
 
     private void initFragment() {
-        Fragment itemsFragment = ItemsFragment.newInstance(bundleApiValue);
-        itemsFragment.setArguments(getIntent().getExtras());
+//        Fragment itemsFragment = ItemsFragment.newInstance(bundleApiValue);
+        mItemsFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragItems, itemsFragment)
+                .add(R.id.fragItems, mItemsFragment)
                 .commit();
     }
-
-//    private void initPresenter() {
-//        presenter.requestItems();
-//    }
 
     // FRAGMENT CALLBACK
     @Override
     public void loadDetailsFragment(Bundle bundle) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragItems, ItemDetailsFragment.newInstance(bundle))
+//                .replace(R.id.fragItems, ItemDetailsFragment.newInstance(bundle))
+                .replace(R.id.fragItems, mItemDetailsFragment)
                 .commit();
     }
 

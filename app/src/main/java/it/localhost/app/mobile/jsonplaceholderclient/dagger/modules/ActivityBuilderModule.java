@@ -7,7 +7,9 @@ import dagger.Module;
 import dagger.android.ActivityKey;
 import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiActivity;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.MainActivity;
+import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.ApiComponent;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.dagger.components.MainComponent;
 
 /**
@@ -20,5 +22,10 @@ public abstract class ActivityBuilderModule {
     @IntoMap
     @ActivityKey(MainActivity.class)
     abstract AndroidInjector.Factory<? extends Activity> bindMainActivity(MainComponent.Builder builder);
+
+    @Binds
+    @IntoMap
+    @ActivityKey(ApiActivity.class)
+    abstract AndroidInjector.Factory<? extends Activity> bindApiActivity(ApiComponent.Builder builder);
 
 }

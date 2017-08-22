@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.support.DaggerFragment;
 import it.localhost.app.mobile.jsonplaceholderclient.R;
 import it.localhost.app.mobile.jsonplaceholderclient.data.model.Post;
 import it.localhost.app.mobile.jsonplaceholderclient.ui.activity.ApiView;
@@ -30,7 +31,7 @@ import static butterknife.ButterKnife.bind;
 /**
  *
  */
-public class ItemDetailsFragment extends Fragment implements ApiView {
+public class ItemDetailsFragment extends DaggerFragment implements ApiView {
 
     private static final String TAG = ItemDetailsFragment.class.getSimpleName();
     private ItemsFragmentCallback mListener;
@@ -73,8 +74,6 @@ public class ItemDetailsFragment extends Fragment implements ApiView {
     public void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-
-        initDependencyInjector();
     }
 
     @Override
@@ -120,10 +119,6 @@ public class ItemDetailsFragment extends Fragment implements ApiView {
         Log.v(TAG, "onDetach");
         super.onDetach();
         mListener = null;
-    }
-
-    private void initDependencyInjector() {
-        // not used
     }
 
     private void initPresenter() {
